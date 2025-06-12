@@ -1,35 +1,352 @@
+/* ---------------------------------- */
+/* 1. FONT IMPORT & ROOT VARIABLES    */
+/* ---------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;700&display=swap');
+
+:root {
+    /* Fonts */
+    --font-primary: 'Luckiest Guy', cursive; /* For the main word, very playful */
+    --font-secondary: 'Fredoka', sans-serif; /* For UI elements, very readable */
+
+    /* Core Colors */
+    --color-bg: #f0f8ff; /* Alice Blue */
+    --color-text: #333;
+    --color-dark: #1a2c42;
+    --color-light: #ffffff;
+
+    /* Sizing */
+    --card-width: 300px;
+    --card-height: 420px;
+    --border-radius: 20px;
+}
+
+/* ---------------------------------- */
+/* 2. GENERAL & LAYOUT STYLING        */
+/* ---------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 1em;
-    text-align: center;
+    font-family: var(--font-secondary);
+    background-color: var(--color-bg);
+    background-image:
+        radial-gradient(circle at 100% 100%, #d4fc79 0%, #96e6a1 90%),
+        radial-gradient(circle at 0% 0%, #ffdde1 0%, #ee9ca7 90%);
+    background-blend-mode: screen;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 header {
-    margin-bottom: 1em;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-#card-area {
-    margin-top: 2em;
-}
-
-#card-deck, #card-display {
-    border: 1px solid #333;
-    padding: 2em;
+button {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--color-light);
+    color: #ff6b6b;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.hidden {
-    display: none;
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-#emoji {
-    font-size: 3em;
-    margin-bottom: 0.5em;
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 #timer-display {
-    font-size: 2em;
-    margin-bottom: 0.5em;
+    font-family: var(--font-primary);
+    font-size: 4rem;
+    color: var(--color-dark);
+    text-shadow: 3px 3px 0px var(--color-light);
+}
+
+/* ---------------------------------- */
+/* 3. CARD FLIP & AREA              */
+/* ---------------------------------- */
+
+#card-area {
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 1500px; /* Essential for the 3D flip effect */
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: transform 0.8s ease-in-out;
+    transform-style: preserve-3d;
+    backface-visibility: hidden; /* Hides the back of the element when flipped */
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#card-area.is-flipped #card-deck {
+    transform: rotateY(180deg);
+}
+
+#card-area.is-flipped #card-display {
+    transform: rotateY(0deg);
+}
+
+/* ---------------------------------- */
+/* 4. CARD DECK STYLING (FACE-DOWN)   */
+/* ---------------------------------- */
+
+#card-deck {
+    transform: rotateY(0deg);
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    color: var(--color-light);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+/* Stacked cards effect */
+#card-deck::before,
+#card-deck::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: transform 0.3s ease;
+}
+
+#card-deck::before {
+    transform: rotate(-5deg);
+}
+#card-deck::after {
+    transform: rotate(5deg);
+}
+
+#card-deck:hover::before { transform: rotate(-8deg) translateY(-10px); }
+#card-deck:hover::after { transform: rotate(8deg) translateY(-10px); }
+
+/* --- Deck Color Themes (to be set by JS) --- */
+.deck-theme-red { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+.deck-theme-red::before, .deck-theme-red::after { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+
+.deck-theme-blue { background: linear-gradient(135deg, #74ebd5, #ACB6E5); }
+.deck-theme-blue::before, .deck-theme-blue::after { background: linear-gradient(135deg, #74ebd5, #ACB6E5); }
+
+.deck-theme-purple { background: linear-gradient(135deg, #89f7fe, #66a6ff); }
+.deck-theme-purple::before, .deck-theme-purple::after { background: linear-gradient(135deg, #89f7fe, #66a6ff); }
+
+.deck-theme-orange { background: linear-gradient(135deg, #f6d365, #fda085); }
+.deck-theme-orange::before, .deck-theme-orange::after { background: linear-gradient(135deg, #f6d365, #fda085); }
+
+
+/* ---------------------------------- */
+/* 5. CARD DISPLAY STYLES (FACE-UP)   */
+/* ---------------------------------- */
+
+#card-display {
+    transform: rotateY(-180deg); /* Start flipped away */
+    gap: 15px;
+}
+#card-display.hidden {
+    display: none; /* Initial state before game starts */
+}
+
+#card-display #emoji {
+    font-size: 6rem;
+    line-height: 1;
+}
+
+#card-display #word {
+    font-family: var(--font-primary);
+    font-size: 4rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+#card-display #level {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Style 1: Comic Book Pop! */
+.card-style-1 {
+    background-color: #ffd166;
+    border: 5px solid var(--color-dark);
+    color: var(--color-dark);
+    box-shadow: 10px 10px 0px #06d6a0;
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.card-style-1 #word { text-shadow: 3px 3px 0 #ef476f; }
+.card-style-1 #level { background-color: #118ab2; color: var(--color-light); }
+
+/* Style 2: Neon Glow */
+.card-style-2 {
+    background-color: #1D1029;
+    color: #fff;
+    border: 2px solid #f92a82;
+    animation: fadeIn 0.5s;
+}
+.card-style-2 #word {
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #f92a82, 0 0 30px #f92a82;
+}
+.card-style-2 #emoji { filter: drop-shadow(0 0 10px #f92a82); }
+.card-style-2 #level { background-color: #f92a82; color: var(--color-light); }
+
+/* Style 3: Wobbly Jelly */
+.card-style-3 {
+    background: rgba(135, 207, 235, 0.8);
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: var(--color-dark);
+    animation: jiggle 0.6s;
+}
+.card-style-3 #word { text-shadow: 2px 2px 0px rgba(255,255,255,0.7); }
+.card-style-3 #level { background-color: rgba(255,255,255,0.5); color: var(--color-dark); }
+
+/* Style 4: Retro Gradient */
+.card-style-4 {
+    background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    color: var(--color-light);
+    border: 4px dashed var(--color-light);
+    animation: fadeIn 0.5s;
+}
+.card-style-4 #word { text-shadow: 3px 3px 2px rgba(0,0,0,0.2); }
+.card-style-4 #level { background-color: transparent; border: 2px solid var(--color-light); }
+
+/* Style 5: Hand-Drawn Sketch */
+.card-style-5 {
+    background-color: #faf8f0;
+    border: 3px solid var(--color-dark);
+    border-radius: 15px 255px 20px 225px / 225px 20px 255px 15px; /* Quirky border */
+    color: #444;
+    animation: fadeIn 0.5s;
+}
+.card-style-5 #word { color: #e63946; }
+.card-style-5 #level { background-color: #a8dadc; color: var(--color-dark); }
+
+/* Style 6: Sticker Peel */
+.card-style-6 {
+    background-color: #fff;
+    color: var(--color-dark);
+    filter: drop-shadow(5px 8px 5px rgba(0,0,0,0.2));
+    transform: rotate(-3deg);
+    animation: popIn 0.3s;
+}
+.card-style-6 #word { color: #457b9d; }
+.card-style-6 #level { background-color: #f1faee; color: #1d3557; border: 2px solid #1d3557; }
+
+/* Style 7: Minimalist Invert */
+.card-style-7 {
+    background-color: var(--color-dark);
+    border: 1px solid #eee;
+    color: var(--color-light);
+    animation: fadeIn 0.5s;
+}
+.card-style-7 #word { color: #96e6a1; text-shadow: none; }
+.card-style-7 #level { background-color: var(--color-light); color: var(--color-dark); }
+
+
+/* ---------------------------------- */
+/* 6. CONTROLS & RESPONSIVENESS       */
+/* ---------------------------------- */
+
+#controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+#controls label {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#controls input {
+    font-family: var(--font-primary);
+    width: 80px;
+    padding: 8px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--color-light);
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 480px) {
+    :root {
+        --card-width: 260px;
+        --card-height: 360px;
+    }
+    #timer-display { font-size: 3rem; }
+    #card-display #emoji { font-size: 4rem; }
+    #card-display #word { font-size: 2.8rem; }
+    #card-display #level { font-size: 1rem; top: 10px; right: 10px; }
+    #controls { flex-direction: column; padding: 15px; border-radius: 20px; }
+}
+
+
+/* ---------------------------------- */
+/* 7. KEYFRAME ANIMATIONS             */
+/* ---------------------------------- */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    75% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes jiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
 }
