@@ -1,29 +1,59 @@
 {
   "A1": [
-    {
-      "word": "hola",
-      "emoji": "👋",
-      "level": "A1"
-    },
-    {
-      "word": "mundo",
-      "emoji": "🌍",
-      "level": "A1"
-    },
-    {
-      "word": "perro",
-      "emoji": "🐶",
-      "level": "A1"
-    },
-    {
-      "word": "móvil",
-      "emoji": "📱",
-      "level": "A1"
-    },
-    {
-      "word": "correr",
-      "emoji": "🏃",
-      "level": "A1"
-    }
+    { "word": "hola", "emoji": "👋", "level": "A1" },
+    { "word": "mundo", "emoji": "🌍", "level": "A1" },
+    { "word": "perro", "emoji": "🐶", "level": "A1" },
+    { "word": "móvil", "emoji": "📱", "level": "A1" },
+    { "word": "correr", "emoji": "🏃", "level": "A1" },
+    { "word": "comer", "emoji": "😋🍽️", "level": "A1" },
+    { "word": "beber", "emoji": "🥤💧", "level": "A1" },
+    { "word": "dormir", "emoji": "😴🛌", "level": "A1" },
+    { "word": "gato", "emoji": "🐱", "level": "A1" },
+    { "word": "casa", "emoji": "🏠", "level": "A1" },
+    { "word": "libro", "emoji": "📖📚", "level": "A1" },
+    { "word": "agua", "emoji": "💧🚰", "level": "A1" },
+    { "word": "sol", "emoji": "☀️😎", "level": "A1" },
+    { "word": "luna", "emoji": "🌙🦉", "level": "A1" },
+    { "word": "hombre", "emoji": "👨", "level": "A1" },
+    { "word": "mujer", "emoji": "👩", "level": "A1" },
+    { "word": "niño", "emoji": "👦", "level": "A1" },
+    { "word": "niña", "emoji": "👧", "level": "A1" },
+    { "word": "trabajar", "emoji": "💼💻", "level": "A1" },
+    { "word": "estudiar", "emoji": "📝🎓", "level": "A1" },
+    { "word": "jugar", "emoji": "⚽🎮", "level": "A1" },
+    { "word": "bailar", "emoji": "💃🕺", "level": "A1" },
+    { "word": "cantar", "emoji": "🎤🎶", "level": "A1" },
+    { "word": "escribir", "emoji": "✍️📄", "level": "A1" },
+    { "word": "leer", "emoji": "👓📖", "level": "A1" },
+    { "word": "grande", "emoji": "🐘↔️👍", "level": "A1" },
+    { "word": "pequeño", "emoji": "🐭↔️👎", "level": "A1" },
+    { "word": "feliz", "emoji": "😄😂", "level": "A1" },
+    { "word": "triste", "emoji": "😢😭", "level": "A1" },
+    { "word": "bueno", "emoji": "👍😇", "level": "A1" },
+    { "word": "malo", "emoji": "👎😈", "level": "A1" },
+    { "word": "rojo", "emoji": "🍓🟥", "level": "A1" },
+    { "word": "azul", "emoji": "💧🟦", "level": "A1" },
+    { "word": "verde", "emoji": "🌳🟩", "level": "A1" },
+    { "word": "amarillo", "emoji": "🍌🟨", "level": "A1" },
+    { "word": "caminar", "emoji": "🚶‍♂️🚶‍♀️", "level": "A1" },
+    { "word": "nadar", "emoji": "🏊‍♀️🌊", "level": "A1" },
+    { "word": "coche", "emoji": "🚗💨", "level": "A1" },
+    { "word": "bicicleta", "emoji": "🚲", "level": "A1" },
+    { "word": "pan", "emoji": "🍞🥖", "level": "A1" },
+    { "word": "leche", "emoji": "🥛🐄", "level": "A1" },
+    { "word": "manzana", "emoji": "🍎", "level": "A1" },
+    { "word": "familia", "emoji": "👨‍👩‍👧‍👦", "level": "A1" },
+    { "word": "amigo", "emoji": "🧑‍🤝‍🧑", "level": "A1" },
+    { "word": "dinero", "emoji": "💰💵", "level": "A1" },
+    { "word": "comprar", "emoji": "🛒🛍️", "level": "A1" },
+    { "word": "pagar", "emoji": "💳💸", "level": "A1" },
+    { "word": "ver", "emoji": "👀📺", "level": "A1" },
+    { "word": "escuchar", "emoji": "👂🎧", "level": "A1" },
+    { "word": "hablar", "emoji": "🗣️💬", "level": "A1" },
+    { "word": "caliente", "emoji": "🔥🥵", "level": "A1" },
+    { "word": "frío", "emoji": "❄️🥶", "level": "A1" },
+    { "word": "fácil", "emoji": "👍✅", "level": "A1" },
+    { "word": "difícil", "emoji": "🤔🤯", "level": "A1" },
+    { "word": "abrir", "emoji": "🚪👐", "level": "A1" }
   ]
 }
