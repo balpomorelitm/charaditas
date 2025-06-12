@@ -53,7 +53,7 @@ function init() {
 
     fetchWords();
 
-    newGameBtn.addEventListener('click', startGame);
+    newGameBtn.addEventListener('click', prepareGame);
     cardDeck.addEventListener('click', () => {
         if (!gameInProgress) startGame();
     });
@@ -61,6 +61,20 @@ function init() {
     timeInput.addEventListener('change', updateTimeSetting);
     passBtn.addEventListener('click', drawNextCard);
     correctBtn.addEventListener('click', handleCorrect); // <-- CAMBIAR A handleCorrect
+}
+
+function prepareGame() {
+    clearInterval(timer);
+    gameInProgress = false;
+    score = 0;
+    scoreValue.textContent = score;
+    timerDisplay.textContent = '--';
+    const cardArea = document.getElementById('card-area');
+    cardArea.classList.remove('is-flipped');
+    actionButtons.classList.add('hidden');
+    cardDisplay.classList.add('hidden');
+    scoreDisplay.classList.remove('final-score');
+    gameContainer.classList.add('game-active');
 }
 
 // Justo después de la función init(), añade esta nueva función:
@@ -93,6 +107,7 @@ function startGame() {
     score = 0; // <-- Reiniciar puntuación
     scoreValue.textContent = score; // <-- Actualizar display
     gameContainer.classList.add('game-active'); // <-- Mostrar marcador
+    scoreDisplay.classList.remove('final-score');
 
     currentDeck = [...allWords];
     // Fisher-Yates shuffle
@@ -173,5 +188,5 @@ function endGame() {
     cardArea.classList.remove('is-flipped');
     actionButtons.classList.add('hidden');
     timerDisplay.textContent = '--';
-    gameContainer.classList.remove('game-active'); // <-- Ocultar marcador
+    scoreDisplay.classList.add('final-score');
 }
