@@ -1,6 +1,11 @@
 # Charaditas
 
-Simple word guessing game built with vanilla HTML, CSS and JavaScript.
+Charaditas is a lightweight word guessing game, similar to charades, built
+with vanilla HTML, CSS and JavaScript. The host displays a word on the screen
+and the other players try to guess it before time runs out.
+
+You can play it online at
+[https://charaditas.pablotorrado.site](https://charaditas.pablotorrado.site).
 
 ## How to run
 
