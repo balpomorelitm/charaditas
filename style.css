@@ -434,6 +434,12 @@ button:hover {
     display: none;
 }
 
+/* Highlight final score with a bright halo */
+.final-score {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    box-shadow: 0 0 15px 5px rgba(255, 175, 75, 0.7);
+}
+
 /* Clase para activar la animación de pulso */
 .score-pulse {
     animation: scoreUpdate 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
