@@ -1,0 +1,29 @@
+{
+  "A1": [
+    {
+      "word": "hola",
+      "emoji": "👋",
+      "level": "A1"
+    },
+    {
+      "word": "mundo",
+      "emoji": "🌍",
+      "level": "A1"
+    },
+    {
+      "word": "perro",
+      "emoji": "🐶",
+      "level": "A1"
+    },
+    {
+      "word": "móvil",
+      "emoji": "📱",
+      "level": "A1"
+    },
+    {
+      "word": "correr",
+      "emoji": "🏃",
+      "level": "A1"
+    }
+  ]
+}
