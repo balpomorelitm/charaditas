@@ -137,6 +137,7 @@ button:hover {
     color: var(--color-light);
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     position: relative;
+    z-index: 1;
 }
 
 /* Stacked cards effect */
@@ -190,6 +191,7 @@ button:hover {
 #card-display {
     transform: rotateY(-180deg); /* Start flipped away */
     gap: 15px;
+    z-index: 2;
 }
 #card-display.hidden {
     display: none; /* Initial state before game starts */
