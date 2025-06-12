@@ -49,7 +49,8 @@ function init() {
 }
 
 function fetchWords() {
-    fetch('words.json')
+    // Use a relative path so the game works regardless of the hosting folder
+    fetch('./words.json')
         .then(resp => resp.json())
         .then(data => {
             allWords = data.A1 || [];
