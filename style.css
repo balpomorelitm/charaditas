@@ -214,9 +214,6 @@ button:hover {
     text-orientation: upright;
 }
 
-.small-word {
-    font-size: 2.4rem;
-}
 
 #card-display #level {
     font-size: 0.96rem;
@@ -351,6 +348,13 @@ button:hover {
     border: 4px solid var(--color-dark);
     color: var(--color-light);
     text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+}
+.section-divider {
+    width: 100%;
+    max-width: 600px;
+    border: none;
+    border-top: 2px dashed rgba(0,0,0,0.2);
+    margin: 20px 0;
 }
 
 #pass-btn {
