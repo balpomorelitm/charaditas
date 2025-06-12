@@ -140,11 +140,11 @@ function drawNextCard() {
     const card = currentDeck.pop();
     emojiEl.textContent = card.emoji;
     wordEl.textContent = card.word;
-    if (card.word.length > 5) {
-        wordEl.classList.add('small-word');
-    } else {
-        wordEl.classList.remove('small-word');
-    }
+    // Ajuste dinámico del tamaño de fuente para palabras largas
+    const baseSize = 3.2; // tamaño por defecto en rem
+    let fontSize = baseSize - Math.max(0, card.word.length - 5) * 0.3;
+    fontSize = Math.max(fontSize, 1.6); // límite inferior para no hacerlas ilegibles
+    wordEl.style.fontSize = fontSize + 'rem';
     levelEl.textContent = card.level;
 }
 
