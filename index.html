@@ -14,6 +14,10 @@
     </header>
 
     <main id="game-container">
+        <div id="score-display" class="hidden">
+            <span id="score-value">0</span>
+        </div>
+
         <div id="timer-display">--</div>
 
         <div id="card-area">
@@ -34,7 +38,7 @@
         </div>
 
         <div id="controls">
-            <label for="time-input" data-lang-key="timeLabel">Time per card (s):</label>
+            <label for="time-input" data-lang-key="timeLabel">Duración de la ronda (s):</label>
             <input type="number" id="time-input" value="90" min="10">
         </div>
     </main>

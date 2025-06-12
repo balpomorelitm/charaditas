@@ -6,24 +6,26 @@ let timeLeft;
 let gameInProgress = false;
 let currentLanguage = 'en';
 let timeSetting = 90;
+let score = 0; // <-- AÑADIR ESTA LÍNEA
 
 // Translation Dictionary
 const translations = {
     en: {
         newGame: 'New Game',
         clickToStart: 'Click Deck to Start',
-        timeLabel: 'Time per card (s):'
+        timeLabel: 'Round duration (s):' // <-- ACTUALIZAR TEXTO
     },
     es: {
         newGame: 'Nueva Partida',
         clickToStart: 'Clica para Empezar',
-        timeLabel: 'Tiempo por tarjeta (s):'
+        timeLabel: 'Duración de la ronda (s):' // <-- ACTUALIZAR TEXTO
     }
 };
 
 // DOM Elements
 let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
 let actionButtons, passBtn, correctBtn;
+let scoreDisplay, scoreValue, gameContainer; // <-- AÑADIR ESTA LÍNEA
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -41,6 +43,9 @@ function init() {
     actionButtons = document.getElementById('action-buttons');
     passBtn = document.getElementById('pass-btn');
     correctBtn = document.getElementById('correct-btn');
+    scoreDisplay = document.getElementById('score-display'); // <-- AÑADIR ESTA LÍNEA
+    scoreValue = document.getElementById('score-value'); // <-- AÑADIR ESTA LÍNEA
+    gameContainer = document.getElementById('game-container'); // <-- AÑADIR ESTA LÍNEA
 
     fetchWords();
 
@@ -51,7 +56,21 @@ function init() {
     langToggleBtn.addEventListener('click', toggleLanguage);
     timeInput.addEventListener('change', updateTimeSetting);
     passBtn.addEventListener('click', drawNextCard);
-    correctBtn.addEventListener('click', drawNextCard);
+    correctBtn.addEventListener('click', handleCorrect); // <-- CAMBIAR A handleCorrect
+}
+
+// Justo después de la función init(), añade esta nueva función:
+function handleCorrect() {
+    score++;
+    scoreValue.textContent = score;
+    scoreDisplay.classList.add('score-pulse');
+
+    // Eliminar la clase de animación para que se pueda volver a activar
+    setTimeout(() => {
+        scoreDisplay.classList.remove('score-pulse');
+    }, 400);
+
+    drawNextCard();
 }
 
 function fetchWords() {
@@ -67,6 +86,10 @@ function fetchWords() {
 function startGame() {
     clearInterval(timer);
     gameInProgress = true;
+    score = 0; // <-- Reiniciar puntuación
+    scoreValue.textContent = score; // <-- Actualizar display
+    gameContainer.classList.add('game-active'); // <-- Mostrar marcador
+
     currentDeck = [...allWords];
     // Fisher-Yates shuffle
     for (let i = currentDeck.length - 1; i > 0; i--) {
@@ -84,6 +107,17 @@ function startGame() {
     cardDisplay.classList.remove('hidden');
     actionButtons.classList.remove('hidden');
     drawNextCard();
+
+    // --- NUEVA LÓGICA DEL TEMPORIZADOR DE RONDA ---
+    timeLeft = timeSetting;
+    timerDisplay.textContent = timeLeft;
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            endGame(); // El juego termina cuando el tiempo se agota
+        }
+    }, 1000);
 }
 
 function drawNextCard() {
@@ -103,22 +137,9 @@ function drawNextCard() {
     emojiEl.textContent = card.emoji;
     wordEl.textContent = card.word;
     levelEl.textContent = card.level;
-    startTimer();
 }
 
-function startTimer() {
-    clearInterval(timer);
-    timeLeft = timeSetting;
-    timerDisplay.textContent = timeLeft;
-    timer = setInterval(() => {
-        timeLeft--;
-        timerDisplay.textContent = timeLeft;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            drawNextCard();
-        }
-    }, 1000);
-}
+
 
 function updateTimeSetting() {
     const val = parseInt(timeInput.value, 10);
@@ -143,4 +164,5 @@ function endGame() {
     cardArea.classList.remove('is-flipped');
     actionButtons.classList.add('hidden');
     timerDisplay.textContent = '--';
+    gameContainer.classList.remove('game-active'); // <-- Ocultar marcador
 }
