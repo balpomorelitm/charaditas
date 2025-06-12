@@ -98,12 +98,15 @@ button:hover {
     height: var(--card-height);
     perspective: 1500px; /* Essential for the 3D flip effect */
     margin-bottom: -80px; /* Pull buttons up to overlap */
+    position: relative; /* Ensure child cards are positioned correctly */
 }
 
 .card {
     width: 100%;
     height: 100%;
     position: absolute;
+    top: 0;
+    left: 0;
     transition: transform 0.8s ease-in-out;
     transform-style: preserve-3d;
     backface-visibility: hidden; /* Hides the back of the element when flipped */
