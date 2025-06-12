@@ -13,12 +13,16 @@ const translations = {
     en: {
         newGame: 'New Game',
         clickToStart: 'Click Deck to Start',
-        timeLabel: 'Round duration (s):' // <-- ACTUALIZAR TEXTO
+        timeLabel: 'Round duration (s):',
+        pass: 'Pass',
+        correct: 'Correct'
     },
     es: {
         newGame: 'Nueva Partida',
         clickToStart: 'Clica para Empezar',
-        timeLabel: 'Duración de la ronda (s):' // <-- ACTUALIZAR TEXTO
+        timeLabel: 'Duración de la ronda (s):',
+        pass: 'Pasar',
+        correct: '¡Correcto!'
     }
 };
 
@@ -136,6 +140,11 @@ function drawNextCard() {
     const card = currentDeck.pop();
     emojiEl.textContent = card.emoji;
     wordEl.textContent = card.word;
+    if (card.word.length > 5) {
+        wordEl.classList.add('small-word');
+    } else {
+        wordEl.classList.remove('small-word');
+    }
     levelEl.textContent = card.level;
 }
 
