@@ -23,6 +23,7 @@ const translations = {
 
 // DOM Elements
 let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
+let actionButtons, passBtn, correctBtn;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -37,6 +38,9 @@ function init() {
     levelEl = document.getElementById('level');
     timerDisplay = document.getElementById('timer-display');
     timeInput = document.getElementById('time-input');
+    actionButtons = document.getElementById('action-buttons');
+    passBtn = document.getElementById('pass-btn');
+    correctBtn = document.getElementById('correct-btn');
 
     fetchWords();
 
@@ -46,6 +50,8 @@ function init() {
     });
     langToggleBtn.addEventListener('click', toggleLanguage);
     timeInput.addEventListener('change', updateTimeSetting);
+    passBtn.addEventListener('click', drawNextCard);
+    correctBtn.addEventListener('click', drawNextCard);
 }
 
 function fetchWords() {
@@ -67,8 +73,16 @@ function startGame() {
         const j = Math.floor(Math.random() * (i + 1));
         [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
     }
-    cardDeck.classList.add('hidden');
+    const cardArea = document.getElementById('card-area');
+    cardArea.classList.add('is-flipped');
+
+    const themes = ['deck-theme-red', 'deck-theme-blue', 'deck-theme-purple', 'deck-theme-orange'];
+    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+    cardDeck.classList.remove(...themes);
+    cardDeck.classList.add(randomTheme);
+
     cardDisplay.classList.remove('hidden');
+    actionButtons.classList.remove('hidden');
     drawNextCard();
 }
 
@@ -77,6 +91,14 @@ function drawNextCard() {
         endGame();
         return;
     }
+
+    const cardStyleCount = 7;
+    const randomStyle = `card-style-${Math.floor(Math.random() * cardStyleCount) + 1}`;
+    for (let i = 1; i <= cardStyleCount; i++) {
+        cardDisplay.classList.remove(`card-style-${i}`);
+    }
+    cardDisplay.classList.add(randomStyle);
+
     const card = currentDeck.pop();
     emojiEl.textContent = card.emoji;
     wordEl.textContent = card.word;
@@ -117,7 +139,8 @@ function toggleLanguage() {
 function endGame() {
     gameInProgress = false;
     clearInterval(timer);
-    cardDisplay.classList.add('hidden');
-    cardDeck.classList.remove('hidden');
+    const cardArea = document.getElementById('card-area');
+    cardArea.classList.remove('is-flipped');
+    actionButtons.classList.add('hidden');
     timerDisplay.textContent = '--';
 }
