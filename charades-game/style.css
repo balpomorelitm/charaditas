@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1em;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 1em;
+}
+
+#card-area {
+    margin-top: 2em;
+}
+
+#card-deck, #card-display {
+    border: 1px solid #333;
+    padding: 2em;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+#emoji {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+}
+
+#timer-display {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
