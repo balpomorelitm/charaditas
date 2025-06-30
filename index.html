@@ -14,6 +14,21 @@
         <button id="lang-toggle-btn">Español</button>
     </header>
 
+    <div id="options-tooltip" class="hidden">
+        <h3>Opciones</h3>
+        <div class="level-options">
+            <span>Nivel:</span>
+            <label><input type="radio" name="level-option" value="A1"> A1</label>
+            <label><input type="radio" name="level-option" value="A2"> A2</label>
+            <label><input type="radio" name="level-option" value="both" checked> A1 + A2</label>
+        </div>
+        <div id="tag-options">
+            <span>Tags:</span>
+            <!-- checkboxes added by JS -->
+        </div>
+        <button id="start-game-btn">Start</button>
+    </div>
+
     <main id="game-container">
         <div id="score-display" class="hidden">
             <span id="score-value">0</span>
