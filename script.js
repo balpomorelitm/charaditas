@@ -9,6 +9,7 @@ let gameInProgress = false;
 let currentLanguage = 'en';
 let timeSetting = 90;
 let score = 0;
+let firstGame = true;
 
 // Translation Dictionary
 const translations = {
@@ -17,22 +18,49 @@ const translations = {
         clickToStart: 'Click Deck to Start',
         timeLabel: 'Round duration (s):',
         pass: 'Pass',
-        correct: 'Correct'
+        correct: 'Correct',
+        optionsTitle: 'Options',
+        levelLabel: 'Level:',
+        tagsLabel: 'Categories:',
+        start: 'Start',
+        selectAll: 'All',
+        selectNone: 'None'
     },
     es: {
         newGame: 'Nueva Partida',
         clickToStart: 'Clica para Empezar',
         timeLabel: 'Duración de la ronda (s):',
         pass: 'Pasar',
-        correct: '¡Correcto!'
+        correct: '¡Correcto!',
+        optionsTitle: 'Opciones',
+        levelLabel: 'Nivel:',
+        tagsLabel: 'Categorías:',
+        start: 'Iniciar',
+        selectAll: 'Todo',
+        selectNone: 'Nada'
     }
+};
+
+// Mapping of tag names to emoji and translations
+const tagInfo = {
+    animal:   { emoji: '🐾', en: 'Animals',    es: 'Animales' },
+    comida:   { emoji: '🍔', en: 'Food',       es: 'Comida' },
+    hogar:    { emoji: '🏠', en: 'Home',       es: 'Hogar' },
+    naturaleza: { emoji: '🌳', en: 'Nature',   es: 'Naturaleza' },
+    objeto:   { emoji: '📦', en: 'Objects',    es: 'Objetos' },
+    'país':     { emoji: '🌎', en: 'Countries',  es: 'Países' },
+    persona:  { emoji: '🧑', en: 'People',     es: 'Personas' },
+    'profesión':{ emoji: '👷', en: 'Jobs',       es: 'Profesiones' },
+    ropa:     { emoji: '👕', en: 'Clothes',    es: 'Ropa' },
+    transporte:{ emoji: '🚗', en: 'Transport', es: 'Transporte' },
+    verbo:    { emoji: '✍️', en: 'Verbs',      es: 'Verbos' }
 };
 
 // DOM Elements
 let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
 let actionButtons, passBtn, correctBtn;
 let scoreDisplay, scoreValue, gameContainer;
-let optionsTooltip, tagOptionsContainer, startGameBtn;
+let optionsTooltip, tagOptionsContainer, startGameBtn, toggleAllBtn;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -56,6 +84,7 @@ function init() {
     optionsTooltip = document.getElementById('options-tooltip');
     tagOptionsContainer = document.getElementById('tag-options');
     startGameBtn = document.getElementById('start-game-btn');
+    toggleAllBtn = document.getElementById('toggle-all-btn');
 
     fetchWords();
 
@@ -63,13 +92,20 @@ function init() {
         optionsTooltip.classList.toggle('hidden');
     });
     cardDeck.addEventListener('click', () => {
-        if (!gameInProgress) startGame();
+        if (!gameInProgress) {
+            if (firstGame) {
+                optionsTooltip.classList.remove('hidden');
+            } else {
+                startGame();
+            }
+        }
     });
     langToggleBtn.addEventListener('click', toggleLanguage);
     timeInput.addEventListener('change', updateTimeSetting);
     passBtn.addEventListener('click', drawNextCard);
     correctBtn.addEventListener('click', handleCorrect);
     startGameBtn.addEventListener('click', applyOptionsAndStart);
+    toggleAllBtn.addEventListener('click', toggleSelectAllTags);
 }
 
 function prepareGame() {
@@ -129,15 +165,17 @@ function setupOptions() {
     const tags = [...new Set(allWords.map(w => w.tag))];
     tagOptionsContainer.innerHTML = '';
     tags.forEach(tag => {
+        const info = tagInfo[tag] || { emoji: '', en: tag, es: tag };
         const label = document.createElement('label');
         const chk = document.createElement('input');
         chk.type = 'checkbox';
         chk.value = tag;
-        chk.checked = true;
+        chk.checked = selectedTags.length === 0 || selectedTags.includes(tag);
         label.appendChild(chk);
-        label.append(' ' + tag);
+        label.append(' ' + info.emoji + ' ' + info[currentLanguage]);
         tagOptionsContainer.appendChild(label);
     });
+    toggleAllBtn.textContent = translations[currentLanguage].selectAll;
 }
 
 function applyOptionsAndStart() {
@@ -145,6 +183,7 @@ function applyOptionsAndStart() {
     selectedLevels = levelVal === 'both' ? ['A1', 'A2'] : [levelVal];
     selectedTags = Array.from(tagOptionsContainer.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
     optionsTooltip.classList.add('hidden');
+    firstGame = false;
     prepareGame();
     startGame();
 }
@@ -230,6 +269,20 @@ function toggleLanguage() {
         const key = el.getAttribute('data-lang-key');
         el.textContent = translations[currentLanguage][key];
     });
+    const currentSelections = Array.from(tagOptionsContainer.querySelectorAll('input[type="checkbox"]'))
+        .filter(c => c.checked)
+        .map(c => c.value);
+    if (currentSelections.length) {
+        selectedTags = currentSelections;
+    }
+    setupOptions();
+}
+
+function toggleSelectAllTags() {
+    const checkboxes = tagOptionsContainer.querySelectorAll('input[type="checkbox"]');
+    const selectAll = toggleAllBtn.textContent === translations[currentLanguage].selectAll;
+    checkboxes.forEach(c => c.checked = selectAll);
+    toggleAllBtn.textContent = selectAll ? translations[currentLanguage].selectNone : translations[currentLanguage].selectAll;
 }
 
 function endGame() {

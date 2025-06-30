@@ -137,7 +137,7 @@ button:hover {
     cursor: pointer;
     font-family: var(--font-primary);
     font-size: 2rem;
-    color: var(--color-light);
+    color: #b8860b;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     position: relative;
     z-index: 1;
@@ -480,4 +480,9 @@ button:hover {
 #options-tooltip label {
     display: block;
     margin: 4px 0;
+}
+
+#toggle-all-btn {
+    margin-top: 8px;
+    width: 100%;
 }
