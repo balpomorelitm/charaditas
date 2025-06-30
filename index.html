@@ -15,18 +15,19 @@
     </header>
 
     <div id="options-tooltip" class="hidden">
-        <h3>Opciones</h3>
+        <h3 data-lang-key="optionsTitle">Opciones</h3>
         <div class="level-options">
-            <span>Nivel:</span>
+            <span data-lang-key="levelLabel">Nivel:</span>
             <label><input type="radio" name="level-option" value="A1"> A1</label>
             <label><input type="radio" name="level-option" value="A2"> A2</label>
             <label><input type="radio" name="level-option" value="both" checked> A1 + A2</label>
         </div>
         <div id="tag-options">
-            <span>Tags:</span>
+            <span data-lang-key="tagsLabel">Tags:</span>
             <!-- checkboxes added by JS -->
+            <button id="toggle-all-btn" type="button" data-lang-key="selectAll">Todo</button>
         </div>
-        <button id="start-game-btn">Start</button>
+        <button id="start-game-btn" data-lang-key="start">Start</button>
     </div>
 
     <main id="game-container">
