@@ -163,7 +163,8 @@ function fetchWords() {
 
 function setupOptions() {
     const tags = [...new Set(allWords.map(w => w.tag))];
-    tagOptionsContainer.innerHTML = '';
+    // Remove old checkboxes but keep static children (label span & toggle button)
+    tagOptionsContainer.querySelectorAll('label').forEach(el => el.remove());
     tags.forEach(tag => {
         const info = tagInfo[tag] || { emoji: '', en: tag, es: tag };
         const label = document.createElement('label');
@@ -173,7 +174,8 @@ function setupOptions() {
         chk.checked = selectedTags.length === 0 || selectedTags.includes(tag);
         label.appendChild(chk);
         label.append(' ' + info.emoji + ' ' + info[currentLanguage]);
-        tagOptionsContainer.appendChild(label);
+        // Insert checkboxes above the toggle button so it stays last
+        tagOptionsContainer.insertBefore(label, toggleAllBtn);
     });
     toggleAllBtn.textContent = translations[currentLanguage].selectAll;
 }
