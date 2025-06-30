@@ -23,8 +23,8 @@ const translations = {
         levelLabel: 'Level:',
         tagsLabel: 'Categories:',
         start: 'Start',
-        selectAll: 'All',
-        selectNone: 'None'
+        selectAll: 'All of them!',
+        selectNone: 'None of them!'
     },
     es: {
         newGame: 'Nueva Partida',
