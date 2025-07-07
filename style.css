@@ -97,7 +97,7 @@ button:hover {
     width: var(--card-width);
     height: var(--card-height);
     perspective: 1500px; /* Essential for the 3D flip effect */
-    margin-bottom: 15px;
+    margin-bottom: 7px;
     position: relative; /* Ensure child cards are positioned correctly */
 }
 
@@ -333,7 +333,7 @@ button:hover {
 #action-buttons {
     display: flex;
     gap: 20px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 #action-buttons.hidden {
@@ -362,7 +362,7 @@ button:hover {
     max-width: 600px;
     border: none;
     border-top: 2px dashed rgba(0,0,0,0.2);
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 #pass-btn {
