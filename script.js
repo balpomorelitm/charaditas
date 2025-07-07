@@ -171,7 +171,7 @@ function setupOptions() {
         const chk = document.createElement('input');
         chk.type = 'checkbox';
         chk.value = tag;
-        chk.checked = selectedTags.length === 0 || selectedTags.includes(tag);
+        chk.checked = (selectedTags.length === 0 && tag !== 'país') || selectedTags.includes(tag);
         label.appendChild(chk);
         label.append(' ' + info.emoji + ' ' + info[currentLanguage]);
         // Insert checkboxes above the toggle button so it stays last
