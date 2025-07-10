@@ -118,6 +118,7 @@ function init() {
     levelToggleCheckbox = document.getElementById('all-levels-checkbox');
     levelToggleText = document.getElementById('level-toggle-text');
 
+
     fetchWords();
 
     newGameBtn.addEventListener('click', () => {
@@ -140,6 +141,7 @@ function init() {
         cb.addEventListener('change', updateLevelToggleState);
     });
     updateLevelToggleState();
+
 }
 
 function prepareGame() {
