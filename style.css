@@ -405,73 +405,11 @@ button:hover {
         --card-width: 260px;
         --card-height: 360px;
     }
+    #timer-display { font-size: 3rem; }
     #card-display #emoji { font-size: 3.2rem; }
     #card-display #word { font-size: 2.24rem; }
     #card-display #level { font-size: 0.8rem; top: 10px; right: 10px; }
     #controls { flex-direction: column; padding: 15px; border-radius: 20px; }
-
-    header {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    header h1 {
-        font-size: 2.2rem;
-        order: -1;
-    }
-
-    .header-buttons {
-        display: flex;
-        gap: 15px;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    header button {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-
-    #stats-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-    }
-
-    #timer-display {
-        font-size: 3.5rem;
-        text-shadow: 2px 2px 0px var(--color-light);
-    }
-
-    #score-display {
-        font-size: 2rem;
-        padding: 8px 25px;
-        margin-bottom: 0;
-    }
-
-    #game-container {
-        gap: 15px;
-    }
-
-    #card-area {
-        margin-bottom: 0;
-    }
-
-    #buttons-divider, #divider {
-        margin: 5px 0;
-    }
-
-    #action-buttons {
-        gap: 15px;
-        margin-top: 0;
-    }
-
-    #action-buttons button {
-        font-size: 1.2rem;
-        padding: 10px 25px;
-    }
 }
 
 
