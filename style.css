@@ -159,7 +159,7 @@ button:hover {
     transform: rotateY(0deg);
     cursor: pointer;
     font-family: var(--font-primary);
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #b8860b;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     position: relative;
@@ -224,13 +224,13 @@ button:hover {
 }
 
 #card-display #emoji {
-    font-size: 4.8rem;
+    font-size: 4.32rem;
     line-height: 1;
 }
 
 #card-display #word {
     font-family: var(--font-primary);
-    font-size: 3.2rem;
+    font-size: 2.88rem;
     line-height: 1.1;
     text-transform: uppercase;
     writing-mode: vertical-lr;
@@ -240,7 +240,7 @@ button:hover {
 
 
 #card-display #level {
-    font-size: 0.96rem;
+    font-size: 0.864rem;
     font-weight: 700;
     padding: 5px 15px;
     border-radius: 20px;
@@ -406,9 +406,9 @@ button:hover {
         --card-height: 360px;
     }
     #timer-display { font-size: 3rem; }
-    #card-display #emoji { font-size: 3.2rem; }
-    #card-display #word { font-size: 2.24rem; }
-    #card-display #level { font-size: 0.8rem; top: 10px; right: 10px; }
+    #card-display #emoji { font-size: 2.88rem; }
+    #card-display #word { font-size: 2.016rem; }
+    #card-display #level { font-size: 0.72rem; top: 10px; right: 10px; }
     #controls { flex-direction: column; padding: 15px; border-radius: 20px; }
 }
 
