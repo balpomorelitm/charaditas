@@ -210,7 +210,7 @@ button:hover {
     font-size: 3.2rem;
     line-height: 1.1;
     text-transform: uppercase;
-    writing-mode: vertical-rl;
+    writing-mode: vertical-lr;
     text-orientation: upright;
     direction: rtl;
 }
