@@ -10,31 +10,41 @@
 <body>
 
     <header>
-        <button id="new-game-btn" data-lang-key="newGame">New Game</button>
-        <div id="controls">
-            <label for="time-input" data-lang-key="timeLabel">Duración de la ronda (s):</label>
-            <input type="number" id="time-input" value="90" min="10">
-        </div>
+        <h1>Charaditas</h1>
         <button id="lang-toggle-btn">Español</button>
     </header>
 
-    <div id="options-tooltip">
-        <h3 data-lang-key="optionsTitle">Opciones</h3>
-        <div class="level-options">
-            <span data-lang-key="levelLabel">Nivel:</span>
-            <label><input type="checkbox" name="level-option" value="A1" checked> A1</label>
-            <label><input type="checkbox" name="level-option" value="A2" checked> A2</label>
-            <label><input type="checkbox" name="level-option" value="B1" checked> B1</label>
-            <label><input type="checkbox" name="level-option" value="B2" checked> B2</label>
-            <label><input type="checkbox" name="level-option" value="C1" checked> C1</label>
-            <label><input type="checkbox" name="level-option" value="C2" checked> C2</label>
+    <div id="options-modal" class="hidden">
+        <div id="options-content">
+            <h3 data-lang-key="optionsTitle">Options</h3>
+
+            <div class="options-section">
+                <span data-lang-key="levelLabel">Level:</span>
+                <div class="level-options">
+                    <label><input type="checkbox" name="level-option" value="A1"> A1</label>
+                    <label><input type="checkbox" name="level-option" value="A2" checked> A2</label>
+                    <label><input type="checkbox" name="level-option" value="B1"> B1</label>
+                    <label><input type="checkbox" name="level-option" value="B2"> B2</label>
+                    <label><input type="checkbox" name="level-option" value="C1"> C1</label>
+                    <label><input type="checkbox" name="level-option" value="C2"> C2</label>
+                    <label><input type="checkbox" name="level-option" value="all"> All</label>
+                </div>
+            </div>
+
+            <div class="options-section" id="tag-options">
+                <span data-lang-key="tagsLabel">Categories:</span>
+                <div id="tag-options-container">
+                </div>
+                <button id="toggle-all-btn" type="button" data-lang-key="selectAll">All of them!</button>
+            </div>
+
+            <div class="options-section">
+                <label for="time-input" data-lang-key="timeLabel">Round duration (s):</label>
+                <input type="number" id="time-input" value="90" min="10">
+            </div>
+
+            <button id="start-game-btn" data-lang-key="start">Start</button>
         </div>
-        <div id="tag-options">
-            <span data-lang-key="tagsLabel">Tags:</span>
-            <!-- checkboxes added by JS -->
-            <button id="toggle-all-btn" type="button" data-lang-key="selectAll">Todo</button>
-        </div>
-        <button id="start-game-btn" data-lang-key="start">Start</button>
     </div>
 
     <main id="game-container">
