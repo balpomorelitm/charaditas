@@ -85,7 +85,7 @@ const tagInfo = {
 let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
 let actionButtons, passBtn, correctBtn;
 let scoreDisplay, scoreValue, gameContainer;
-let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn, closeOptionsBtn;
+let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn, toggleLevelsBtn, closeOptionsBtn;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -110,6 +110,7 @@ function init() {
     tagOptionsContainer = document.getElementById('tag-options-container');
     startGameBtn = document.getElementById('start-game-btn');
     toggleAllBtn = document.getElementById('toggle-all-btn');
+    toggleLevelsBtn = document.getElementById('toggle-levels-btn');
     closeOptionsBtn = document.getElementById('close-options-btn');
 
     fetchWords();
@@ -129,6 +130,7 @@ function init() {
     correctBtn.addEventListener('click', handleCorrect);
     startGameBtn.addEventListener('click', applyOptionsAndStart);
     toggleAllBtn.addEventListener('click', toggleSelectAllTags);
+    toggleLevelsBtn.addEventListener('click', toggleSelectAllLevels);
     closeOptionsBtn.addEventListener('click', () => {
         optionsModal.classList.add('hidden');
     });
@@ -204,6 +206,9 @@ function setupOptions() {
         tagOptionsContainer.appendChild(label);
     });
     toggleAllBtn.textContent = translations[currentLanguage].selectAll;
+    toggleAllBtn.setAttribute('data-lang-key', 'selectAll');
+    toggleLevelsBtn.textContent = translations[currentLanguage].selectAll;
+    toggleLevelsBtn.setAttribute('data-lang-key', 'selectAll');
 }
 
 function applyOptionsAndStart() {
@@ -300,7 +305,9 @@ function toggleLanguage() {
     langToggleBtn.textContent = currentLanguage === 'en' ? 'Español' : 'English';
     document.querySelectorAll('[data-lang-key]').forEach(el => {
         const key = el.getAttribute('data-lang-key');
-        el.textContent = translations[currentLanguage][key];
+        if (translations[currentLanguage][key]) {
+            el.textContent = translations[currentLanguage][key];
+        }
     });
     const currentSelections = Array.from(tagOptionsContainer.querySelectorAll('input[type="checkbox"]'))
         .filter(c => c.checked)
@@ -309,6 +316,13 @@ function toggleLanguage() {
         selectedTags = currentSelections;
     }
     setupOptions();
+    // Update toggle buttons to reflect current language and mode
+    toggleAllBtn.textContent = toggleAllBtn.getAttribute('data-lang-key') === 'selectAll'
+        ? translations[currentLanguage].selectAll
+        : translations[currentLanguage].selectNone;
+    toggleLevelsBtn.textContent = toggleLevelsBtn.getAttribute('data-lang-key') === 'selectAll'
+        ? translations[currentLanguage].selectAll
+        : translations[currentLanguage].selectNone;
 }
 
 function toggleSelectAllTags() {
@@ -316,6 +330,20 @@ function toggleSelectAllTags() {
     const selectAll = toggleAllBtn.textContent === translations[currentLanguage].selectAll;
     checkboxes.forEach(c => c.checked = selectAll);
     toggleAllBtn.textContent = selectAll ? translations[currentLanguage].selectNone : translations[currentLanguage].selectAll;
+    toggleAllBtn.setAttribute('data-lang-key', selectAll ? 'selectNone' : 'selectAll');
+}
+
+function toggleSelectAllLevels() {
+    const checkboxes = document.querySelectorAll('.level-options input[type="checkbox"]');
+    const shouldSelectAll = toggleLevelsBtn.getAttribute('data-lang-key') === 'selectAll';
+    checkboxes.forEach(c => c.checked = shouldSelectAll);
+    if (shouldSelectAll) {
+        toggleLevelsBtn.textContent = translations[currentLanguage].selectNone;
+        toggleLevelsBtn.setAttribute('data-lang-key', 'selectNone');
+    } else {
+        toggleLevelsBtn.textContent = translations[currentLanguage].selectAll;
+        toggleLevelsBtn.setAttribute('data-lang-key', 'selectAll');
+    }
 }
 
 function endGame() {
