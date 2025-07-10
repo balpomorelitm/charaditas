@@ -542,6 +542,18 @@ button:hover {
     margin-bottom: 10px;
 }
 
+/* Alignment for level header with toggle button */
+.options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.options-header > span {
+    margin-bottom: 0;
+}
+
 /* Level & Tag Options */
 .level-options, #tag-options-container {
     display: flex;
