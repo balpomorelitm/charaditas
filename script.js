@@ -82,7 +82,7 @@ const tagInfo = {
 };
 
 // DOM Elements
-let langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
+let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
 let actionButtons, passBtn, correctBtn;
 let scoreDisplay, scoreValue, gameContainer;
 let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn;
@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     // Get DOM references
+    newGameBtn = document.getElementById('new-game-btn');
     langToggleBtn = document.getElementById('lang-toggle-btn');
     cardDeck = document.getElementById('card-deck');
     cardDisplay = document.getElementById('card-display');
@@ -111,6 +112,10 @@ function init() {
     toggleAllBtn = document.getElementById('toggle-all-btn');
 
     fetchWords();
+
+    newGameBtn.addEventListener('click', () => {
+        optionsModal.classList.remove('hidden');
+    });
 
     cardDeck.addEventListener('click', () => {
         if (!gameInProgress) {
@@ -136,7 +141,8 @@ function prepareGame() {
     actionButtons.classList.add('hidden');
     cardDisplay.classList.add('hidden');
     scoreDisplay.classList.remove('final-score');
-    gameContainer.classList.add('game-active');
+    newGameBtn.classList.add('hidden');
+    gameContainer.classList.remove('game-active');
 }
 
 // Justo después de la función init(), añade esta nueva función:
@@ -215,6 +221,7 @@ function startGame() {
     gameInProgress = true;
     score = 0;
     scoreValue.textContent = score;
+    newGameBtn.classList.remove('hidden');
     gameContainer.classList.add('game-active');
     scoreDisplay.classList.remove('final-score');
 
@@ -315,4 +322,5 @@ function endGame() {
     actionButtons.classList.add('hidden');
     timerDisplay.textContent = '--';
     scoreDisplay.classList.add('final-score');
+    newGameBtn.classList.remove('hidden');
 }
