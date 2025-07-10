@@ -140,9 +140,10 @@ function prepareGame() {
     score = 0;
     scoreValue.textContent = score;
     timerDisplay.textContent = '--';
+    const cardArea = document.getElementById('card-area');
+    cardArea.classList.remove('is-flipped');
     actionButtons.classList.add('hidden');
     cardDisplay.classList.add('hidden');
-    cardDeck.classList.remove("hidden");
     scoreDisplay.classList.remove('final-score');
     newGameBtn.classList.add('hidden');
     gameContainer.classList.remove('game-active');
@@ -159,7 +160,7 @@ function handleCorrect() {
         scoreDisplay.classList.remove('score-pulse');
     }, 400);
 
-    drawNextCard(true);
+    drawNextCard();
 }
 
 function fetchWords() {
@@ -237,16 +238,17 @@ function startGame() {
         const j = Math.floor(Math.random() * (i + 1));
         [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
     }
+    const cardArea = document.getElementById('card-area');
+    cardArea.classList.add('is-flipped');
 
     const themes = ['deck-theme-red', 'deck-theme-blue', 'deck-theme-purple', 'deck-theme-orange'];
     const randomTheme = themes[Math.floor(Math.random() * themes.length)];
     cardDeck.classList.remove(...themes);
     cardDeck.classList.add(randomTheme);
-    cardDeck.classList.remove("hidden");
 
-    cardDisplay.classList.add("hidden");
+    cardDisplay.classList.remove('hidden');
     actionButtons.classList.remove('hidden');
-    drawNextCard(true);
+    drawNextCard();
 
     // --- NUEVA LÓGICA DEL TEMPORIZADOR DE RONDA ---
     timeLeft = timeSetting;
@@ -260,49 +262,29 @@ function startGame() {
     }, 1000);
 }
 
-function drawNextCard(firstCard = false) {
+function drawNextCard() {
     if (currentDeck.length === 0) {
         endGame();
         return;
     }
 
-    const animateCard = () => {
-        cardDeck.classList.add('hidden');
-        cardDisplay.classList.remove('hidden');
-
-        const card = currentDeck.pop();
-        const cardStyleCount = 7;
-        const randomStyle = `card-style-${Math.floor(Math.random() * cardStyleCount) + 1}`;
-        for (let i = 1; i <= cardStyleCount; i++) {
-            cardDisplay.classList.remove(`card-style-${i}`);
-        }
-        cardDisplay.classList.add(randomStyle);
-
-        emojiEl.textContent = card.emoji;
-        wordEl.textContent = card.word;
-        const baseSize = 3.1;
-        let fontSize = baseSize - Math.max(0, card.word.length - 5) * 0.35;
-        fontSize = Math.max(fontSize, 1.5);
-        wordEl.style.fontSize = fontSize + 'rem';
-        levelEl.textContent = card.level;
-
-        cardDisplay.classList.add('card-enter');
-        setTimeout(() => {
-            cardDisplay.classList.remove('card-enter');
-        }, 500);
-    };
-
-    if (firstCard) {
-        animateCard();
-    } else {
-        cardDisplay.classList.add('card-exit');
-        setTimeout(() => {
-            cardDisplay.classList.remove('card-exit');
-            animateCard();
-        }, 500);
+    const cardStyleCount = 7;
+    const randomStyle = `card-style-${Math.floor(Math.random() * cardStyleCount) + 1}`;
+    for (let i = 1; i <= cardStyleCount; i++) {
+        cardDisplay.classList.remove(`card-style-${i}`);
     }
-}
+    cardDisplay.classList.add(randomStyle);
 
+    const card = currentDeck.pop();
+    emojiEl.textContent = card.emoji;
+    wordEl.textContent = card.word;
+    // Ajuste dinámico del tamaño de fuente para palabras largas
+    const baseSize = 3.1; // tamaño por defecto en rem ligeramente menor
+    let fontSize = baseSize - Math.max(0, card.word.length - 5) * 0.35;
+    fontSize = Math.max(fontSize, 1.5); // límite inferior para no hacerlas ilegibles
+    wordEl.style.fontSize = fontSize + 'rem';
+    levelEl.textContent = card.level;
+}
 
 
 
@@ -339,9 +321,9 @@ function toggleSelectAllTags() {
 function endGame() {
     gameInProgress = false;
     clearInterval(timer);
+    const cardArea = document.getElementById('card-area');
+    cardArea.classList.remove('is-flipped');
     actionButtons.classList.add('hidden');
-    cardDeck.classList.remove("hidden");
-    cardDisplay.classList.add("hidden");
     timerDisplay.textContent = '--';
     scoreDisplay.classList.add('final-score');
     newGameBtn.classList.remove('hidden');
