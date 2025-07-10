@@ -134,6 +134,18 @@ function init() {
     closeOptionsBtn.addEventListener('click', () => {
         optionsModal.classList.add('hidden');
     });
+
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+        const st = window.pageYOffset || document.documentElement.scrollTop;
+        const headerEl = document.querySelector('header');
+        if (st > lastScrollTop) {
+            headerEl.classList.add('hidden-header');
+        } else {
+            headerEl.classList.remove('hidden-header');
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    });
 }
 
 function prepareGame() {
