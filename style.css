@@ -45,8 +45,6 @@ body {
 
 svg {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100vh;
     z-index: -1; /* Place it behind all content */
@@ -55,6 +53,7 @@ svg {
 /* Ensure header and other main elements have a higher z-index */
 header, #game-container {
     position: relative;
+    z-index: 2; /* Make sure it is on top of background cards */
     z-index: 1;
 }
 
@@ -119,20 +118,15 @@ button:hover {
 #card-area {
     width: var(--card-width);
     height: var(--card-height);
-    perspective: 1500px; /* Essential for the 3D flip effect */
     margin-bottom: 7px;
     position: relative; /* Ensure child cards are positioned correctly */
+    z-index: 2; /* Make sure it is on top of background cards */
 }
 
 .card {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     transition: transform 0.8s ease-in-out;
-    transform-style: preserve-3d;
-    backface-visibility: hidden; /* Hides the back of the element when flipped */
     border-radius: var(--border-radius);
     border: 4px solid #fff;
     display: flex;
@@ -142,14 +136,33 @@ button:hover {
     text-align: center;
     padding: 15px;
 }
-
-#card-area.is-flipped #card-deck {
-    transform: rotateY(180deg);
+.card-exit {
+    animation: cardFlyOut 0.5s ease-in forwards;
 }
 
-#card-area.is-flipped #card-display {
-    transform: rotateY(0deg);
+.card-enter {
+    animation: cardSlideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
+
+.card-background {
+    width: var(--card-width);
+    height: var(--card-height);
+    border-radius: var(--border-radius);
+    background: var(--color-light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: absolute;
+    z-index: 0;
+    transition: transform 0.3s ease;
+}
+
+#bg-card-1 {
+    transform: rotate(-4deg);
+}
+#bg-card-2 {
+    transform: rotate(4deg);
+}
+
+
 
 /* ---------------------------------- */
 /* 4. CARD DECK STYLING (FACE-DOWN)   */
@@ -163,6 +176,7 @@ button:hover {
     color: #b8860b;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     position: relative;
+    z-index: 2; /* Make sure it is on top of background cards */
     z-index: 1;
 }
 
@@ -170,12 +184,9 @@ button:hover {
 #card-deck::before,
 #card-deck::after {
     content: '';
-    position: absolute;
     width: 100%;
     height: 100%;
     border-radius: var(--border-radius);
-    top: 0;
-    left: 0;
     z-index: -1;
     transition: transform 0.3s ease;
 }
@@ -204,7 +215,6 @@ button:hover {
 .deck-theme-orange::before, .deck-theme-orange::after { background: linear-gradient(135deg, #f6d365, #fda085); }
 
 /* --- CORRECCIÓN PARA OCULTAR TEXTO DEL REVERSO --- */
-#card-area.is-flipped #card-deck {
     color: transparent;
     text-shadow: none;
 }
@@ -215,7 +225,6 @@ button:hover {
 /* ---------------------------------- */
 
 #card-display {
-    transform: rotateY(-180deg); /* Start flipped away */
     gap: 15px;
     z-index: 2;
 }
@@ -244,7 +253,6 @@ button:hover {
     font-weight: 700;
     padding: 5px 15px;
     border-radius: 20px;
-    position: absolute;
     top: 20px;
     right: 20px;
 }
@@ -330,7 +338,6 @@ button:hover {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 0;
     background: rgba(255, 255, 255, 0.5);
     padding: 15px 25px;
     border-radius: 50px;
@@ -478,6 +485,28 @@ button:hover {
     100% { transform: scale(1); }
 }
 
+@keyframes cardFlyOut {
+    0% {
+        transform: translateX(0) rotateZ(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(150%) rotateZ(25deg);
+        opacity: 0;
+    }
+}
+
+@keyframes cardSlideIn {
+    from {
+        transform: translateY(200%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
 /* --- También añade esta línea para que el marcador no aparezca hasta que empiece el juego --- */
 #game-container > #score-display {
     display: none; /* Oculto por defecto */
@@ -492,8 +521,6 @@ button:hover {
 
 #options-modal {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
@@ -517,6 +544,7 @@ button:hover {
     max-width: 500px;
     text-align: center;
     position: relative;
+    z-index: 2; /* Make sure it is on top of background cards */
     font-family: var(--font-secondary);
     border: 4px solid #ff6b6b;
     animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -619,7 +647,6 @@ button:hover {
 }
 
 #close-options-btn {
-    position: absolute;
     top: 10px;
     right: 10px;
     width: 28px;
