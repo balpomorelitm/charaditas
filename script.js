@@ -24,7 +24,9 @@ const translations = {
         tagsLabel: 'Categories:',
         start: 'Start',
         selectAll: 'All of them!',
-        selectNone: 'None of them!'
+        selectNone: 'None of them!',
+        allLevels: 'All',
+        noneLevels: 'None'
     },
     es: {
         newGame: 'Nueva Partida',
@@ -37,7 +39,9 @@ const translations = {
         tagsLabel: 'Categorías:',
         start: 'Iniciar',
         selectAll: 'Todo',
-        selectNone: 'Nada'
+        selectNone: 'Nada',
+        allLevels: 'Todo',
+        noneLevels: 'Ninguno'
     }
 };
 
@@ -86,6 +90,7 @@ let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, 
 let actionButtons, passBtn, correctBtn;
 let scoreDisplay, scoreValue, gameContainer;
 let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn;
+let levelToggleCheckbox, levelToggleText;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -110,6 +115,8 @@ function init() {
     tagOptionsContainer = document.getElementById('tag-options-container');
     startGameBtn = document.getElementById('start-game-btn');
     toggleAllBtn = document.getElementById('toggle-all-btn');
+    levelToggleCheckbox = document.getElementById('all-levels-checkbox');
+    levelToggleText = document.getElementById('level-toggle-text');
 
     fetchWords();
 
@@ -128,6 +135,11 @@ function init() {
     correctBtn.addEventListener('click', handleCorrect);
     startGameBtn.addEventListener('click', applyOptionsAndStart);
     toggleAllBtn.addEventListener('click', toggleSelectAllTags);
+    levelToggleCheckbox.addEventListener('change', toggleSelectAllLevels);
+    document.querySelectorAll('input[name="level-option"]:not([value="all"])').forEach(cb => {
+        cb.addEventListener('change', updateLevelToggleState);
+    });
+    updateLevelToggleState();
 }
 
 function prepareGame() {
@@ -305,6 +317,9 @@ function toggleLanguage() {
         selectedTags = currentSelections;
     }
     setupOptions();
+    levelToggleText.textContent = levelToggleCheckbox.checked ?
+        (translations[currentLanguage].noneLevels || 'None') :
+        (translations[currentLanguage].allLevels || 'All');
 }
 
 function toggleSelectAllTags() {
@@ -312,6 +327,22 @@ function toggleSelectAllTags() {
     const selectAll = toggleAllBtn.textContent === translations[currentLanguage].selectAll;
     checkboxes.forEach(c => c.checked = selectAll);
     toggleAllBtn.textContent = selectAll ? translations[currentLanguage].selectNone : translations[currentLanguage].selectAll;
+}
+
+function toggleSelectAllLevels() {
+    const checkboxes = document.querySelectorAll('input[name="level-option"]:not([value="all"])');
+    const selectAll = levelToggleCheckbox.checked;
+    checkboxes.forEach(c => c.checked = selectAll);
+    levelToggleText.textContent = selectAll ? (translations[currentLanguage].noneLevels || 'None')
+                                            : (translations[currentLanguage].allLevels || 'All');
+}
+
+function updateLevelToggleState() {
+    const checkboxes = document.querySelectorAll('input[name="level-option"]:not([value="all"])');
+    const allChecked = Array.from(checkboxes).every(c => c.checked);
+    levelToggleCheckbox.checked = allChecked;
+    levelToggleText.textContent = allChecked ? (translations[currentLanguage].noneLevels || 'None')
+                                            : (translations[currentLanguage].allLevels || 'All');
 }
 
 function endGame() {
