@@ -82,16 +82,15 @@ const tagInfo = {
 };
 
 // DOM Elements
-let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
+let langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
 let actionButtons, passBtn, correctBtn;
 let scoreDisplay, scoreValue, gameContainer;
-let optionsTooltip, tagOptionsContainer, startGameBtn, toggleAllBtn;
+let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn;
 
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     // Get DOM references
-    newGameBtn = document.getElementById('new-game-btn');
     langToggleBtn = document.getElementById('lang-toggle-btn');
     cardDeck = document.getElementById('card-deck');
     cardDisplay = document.getElementById('card-display');
@@ -106,23 +105,16 @@ function init() {
     scoreDisplay = document.getElementById('score-display');
     scoreValue = document.getElementById('score-value');
     gameContainer = document.getElementById('game-container');
-    optionsTooltip = document.getElementById('options-tooltip');
-    tagOptionsContainer = document.getElementById('tag-options');
+    optionsModal = document.getElementById('options-modal');
+    tagOptionsContainer = document.getElementById('tag-options-container');
     startGameBtn = document.getElementById('start-game-btn');
     toggleAllBtn = document.getElementById('toggle-all-btn');
 
     fetchWords();
 
-    newGameBtn.addEventListener('click', () => {
-        optionsTooltip.classList.toggle('hidden');
-    });
     cardDeck.addEventListener('click', () => {
         if (!gameInProgress) {
-            if (firstGame) {
-                optionsTooltip.classList.remove('hidden');
-            } else {
-                startGame();
-            }
+            optionsModal.classList.remove('hidden');
         }
     });
     langToggleBtn.addEventListener('click', toggleLanguage);
@@ -199,8 +191,7 @@ function setupOptions() {
         chk.checked = (selectedTags.length === 0 && tag !== 'país') || selectedTags.includes(tag);
         label.appendChild(chk);
         label.append(' ' + info.emoji + ' ' + info[currentLanguage]);
-        // Insert checkboxes above the toggle button so it stays last
-        tagOptionsContainer.insertBefore(label, toggleAllBtn);
+        tagOptionsContainer.appendChild(label);
     });
     toggleAllBtn.textContent = translations[currentLanguage].selectAll;
 }
@@ -213,7 +204,7 @@ function applyOptionsAndStart() {
         selectedLevels = checkedLevels;
     }
     selectedTags = Array.from(tagOptionsContainer.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
-    optionsTooltip.classList.add('hidden');
+    optionsModal.classList.add('hidden');
     firstGame = false;
     prepareGame();
     startGame();
