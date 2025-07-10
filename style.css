@@ -406,6 +406,10 @@ button:hover {
 
 /* Media Query for smaller screens */
 @media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
     :root {
         --card-width: 260px;
         --card-height: 360px;
