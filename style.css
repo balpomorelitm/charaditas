@@ -42,6 +42,7 @@ body {
     padding: 80px 20px 20px; /* extra top padding for fixed header */
     overflow-x: hidden;
     overflow-y: auto; /* allow scrolling */
+
 }
 
 svg {
@@ -496,6 +497,13 @@ button:hover {
     #action-buttons button {
         font-size: 1.2rem;
         padding: 10px 25px;
+    }
+
+    /* Reduce size of category buttons */
+    .level-options label,
+    #tag-options-container label {
+        font-size: 0.5rem;
+        padding: 4px 6px;
     }
 }
 
