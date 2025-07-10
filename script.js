@@ -78,7 +78,6 @@ const tagInfo = {
     'tecnología':   { emoji: '💻', en: 'Technology',   es: 'Tecnología' },
     'tiempo':       { emoji: '⏳', en: 'Time',         es: 'Tiempo' },
     'transporte':   { emoji: '🚗', en: 'Transport',    es: 'Transporte' },
-    'valor':        { emoji: '💎', en: 'Values',       es: 'Valores' },
     'verbo':        { emoji: '✍️', en: 'Verbs',        es: 'Verbos' }
 };
 
