@@ -43,17 +43,43 @@ const translations = {
 
 // Mapping of tag names to emoji and translations
 const tagInfo = {
-    animal:   { emoji: '🐾', en: 'Animals',    es: 'Animales' },
-    comida:   { emoji: '🍔', en: 'Food',       es: 'Comida' },
-    hogar:    { emoji: '🏠', en: 'Home',       es: 'Hogar' },
-    naturaleza: { emoji: '🌳', en: 'Nature',   es: 'Naturaleza' },
-    objeto:   { emoji: '📦', en: 'Objects',    es: 'Objetos' },
-    'país':     { emoji: '🌎', en: 'Countries',  es: 'Países' },
-    persona:  { emoji: '🧑', en: 'People',     es: 'Personas' },
-    'profesión':{ emoji: '👷', en: 'Jobs',       es: 'Profesiones' },
-    ropa:     { emoji: '👕', en: 'Clothes',    es: 'Ropa' },
-    transporte:{ emoji: '🚗', en: 'Transport', es: 'Transporte' },
-    verbo:    { emoji: '✍️', en: 'Verbs',      es: 'Verbos' }
+    'acción':       { emoji: '🏃', en: 'Actions',      es: 'Acciones' },
+    'objeto':       { emoji: '📦', en: 'Objects',      es: 'Objetos' },
+    'adjetivo':     { emoji: '✨', en: 'Adjectives',   es: 'Adjetivos' },
+    'animal':       { emoji: '🐾', en: 'Animals',      es: 'Animales' },
+    'cuerpo':       { emoji: '🦴', en: 'Body',         es: 'Cuerpo' },
+    'comida':       { emoji: '🍔', en: 'Food',         es: 'Comida' },
+    'concepto':     { emoji: '💡', en: 'Concepts',     es: 'Conceptos' },
+    'celebración':  { emoji: '🎉', en: 'Celebrations', es: 'Celebraciones' },
+    'ciencia':      { emoji: '🔬', en: 'Science',      es: 'Ciencia' },
+    'color':        { emoji: '🎨', en: 'Colors',       es: 'Colores' },
+    'cultura':      { emoji: '🎭', en: 'Culture',      es: 'Cultura' },
+    'deporte':      { emoji: '⚽', en: 'Sports',       es: 'Deportes' },
+    'documento':    { emoji: '📄', en: 'Documents',    es: 'Documentos' },
+    'naturaleza':   { emoji: '🌳', en: 'Nature',       es: 'Naturaleza' },
+    'hogar':        { emoji: '🏠', en: 'Home',         es: 'Hogar' },
+    'estado':       { emoji: '😴', en: 'States',       es: 'Estados' },
+    'evento':       { emoji: '📅', en: 'Events',       es: 'Eventos' },
+    'expresión':    { emoji: '💬', en: 'Expressions',  es: 'Expresiones' },
+    'forma':        { emoji: '🔺', en: 'Shapes',       es: 'Formas' },
+    'historia':     { emoji: '📜', en: 'History',      es: 'Historia' },
+    'instrumento':  { emoji: '🎺', en: 'Instruments',  es: 'Instrumentos' },
+    'juego':        { emoji: '🎲', en: 'Games',        es: 'Juegos' },
+    'lugar':        { emoji: '📍', en: 'Places',       es: 'Lugares' },
+    'material':     { emoji: '🧱', en: 'Materials',    es: 'Materiales' },
+    'mueble':       { emoji: '🛋️', en: 'Furniture',    es: 'Muebles' },
+    'música':       { emoji: '🎵', en: 'Music',        es: 'Música' },
+    'país':         { emoji: '🌎', en: 'Countries',    es: 'Países' },
+    'persona':      { emoji: '🧑', en: 'People',       es: 'Personas' },
+    'planta':       { emoji: '🌱', en: 'Plants',       es: 'Plantas' },
+    'profesión':    { emoji: '👷', en: 'Jobs',         es: 'Profesiones' },
+    'ropa':         { emoji: '👕', en: 'Clothes',      es: 'Ropa' },
+    'salud':        { emoji: '⚕️', en: 'Health',       es: 'Salud' },
+    'tecnología':   { emoji: '💻', en: 'Technology',   es: 'Tecnología' },
+    'tiempo':       { emoji: '⏳', en: 'Time',         es: 'Tiempo' },
+    'transporte':   { emoji: '🚗', en: 'Transport',    es: 'Transporte' },
+    'valor':        { emoji: '💎', en: 'Values',       es: 'Valores' },
+    'verbo':        { emoji: '✍️', en: 'Verbs',        es: 'Verbos' }
 };
 
 // DOM Elements
@@ -182,7 +208,13 @@ function setupOptions() {
 
 function applyOptionsAndStart() {
     const levelVal = document.querySelector('input[name="level-option"]:checked').value;
-    selectedLevels = levelVal === 'both' ? ['A1', 'A2'] : [levelVal];
+    if (levelVal === 'all') {
+        selectedLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    } else if (levelVal === 'both') {
+        selectedLevels = ['A1', 'A2'];
+    } else {
+        selectedLevels = [levelVal];
+    }
     selectedTags = Array.from(tagOptionsContainer.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
     optionsTooltip.classList.add('hidden');
     firstGame = false;
