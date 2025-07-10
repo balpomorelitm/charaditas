@@ -85,7 +85,7 @@ const tagInfo = {
 let newGameBtn, langToggleBtn, cardDeck, cardDisplay, emojiEl, wordEl, levelEl, timerDisplay, timeInput;
 let actionButtons, passBtn, correctBtn;
 let scoreDisplay, scoreValue, gameContainer;
-let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn;
+let optionsModal, tagOptionsContainer, startGameBtn, toggleAllBtn, closeOptionsBtn;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -110,6 +110,7 @@ function init() {
     tagOptionsContainer = document.getElementById('tag-options-container');
     startGameBtn = document.getElementById('start-game-btn');
     toggleAllBtn = document.getElementById('toggle-all-btn');
+    closeOptionsBtn = document.getElementById('close-options-btn');
 
     fetchWords();
 
@@ -128,6 +129,9 @@ function init() {
     correctBtn.addEventListener('click', handleCorrect);
     startGameBtn.addEventListener('click', applyOptionsAndStart);
     toggleAllBtn.addEventListener('click', toggleSelectAllTags);
+    closeOptionsBtn.addEventListener('click', () => {
+        optionsModal.classList.add('hidden');
+    });
 }
 
 function prepareGame() {
