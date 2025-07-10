@@ -1,7 +1,7 @@
 // Game State
 let allWords = [];
 let currentDeck = [];
-let selectedLevels = ['A1', 'A2'];
+let selectedLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 let selectedTags = [];
 let timer;
 let timeLeft;
@@ -206,13 +206,11 @@ function setupOptions() {
 }
 
 function applyOptionsAndStart() {
-    const levelVal = document.querySelector('input[name="level-option"]:checked').value;
-    if (levelVal === 'all') {
+    const checkedLevels = Array.from(document.querySelectorAll('input[name="level-option"]:checked')).map(el => el.value);
+    if (checkedLevels.length === 0) {
         selectedLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-    } else if (levelVal === 'both') {
-        selectedLevels = ['A1', 'A2'];
     } else {
-        selectedLevels = [levelVal];
+        selectedLevels = checkedLevels;
     }
     selectedTags = Array.from(tagOptionsContainer.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
     optionsTooltip.classList.add('hidden');

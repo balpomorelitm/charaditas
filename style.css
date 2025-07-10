@@ -212,6 +212,7 @@ button:hover {
     text-transform: uppercase;
     writing-mode: vertical-rl;
     text-orientation: upright;
+    direction: rtl;
 }
 
 
